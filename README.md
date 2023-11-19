@@ -33,6 +33,7 @@ The environmental maps comprised:
 
 A description of these can be seen in the paper.
 
+
 ## This repository includes:
 main.py:
     Main code that contains the implemented simulation as a pygame, all compared algorithms and the different maps.
