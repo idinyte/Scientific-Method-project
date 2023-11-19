@@ -1,16 +1,8 @@
-# Scientific-Method-project
-
-Step 1. Develop different full area exploration algorithms (here)
-
-Step 2. Convert path traveled in simulation to path for the real robot and see how long it takes to drive that path
-
-Step 3. Analyse the data and make a scientific report
-
-
-# Title: 
+## Testing complete area exploration algorithms for mobile robots in simulated environments
 # Abstract
+Mobile robots are becoming increasingly accessible to customers and are therefore finding their way into more and more households. For example, there are vacuum cleaning robots that attempt to clean all areas of a room while avoiding obstacles. For the most sustainable use and the best customer satisfaction, the robot should cover the entire room in the fastest possible time. However, this depends heavily on the algorithm used to move the robot. In this paper, we compare different non-sensor-based algorithms to overcome this challenge. We hypothesise that an A* Orientation algorithm is superior to other stochastic and deterministic algorithms. We expect that this algorithm performs best when it comes to the time to cover all areas of different test environments, the total accumulated rotation, and the error as a measure of areas already explored. To test and evaluate the algorithms, we introduce a grid-based simulation using Pygame and various test environments. As a result, the A* Orientation algorithm provides the best performance, which is why we transferred its path generated in the simulation to a Lego Mindstorms EV3 robot. This allows a successful robot exploration in a known real-world environment.
 
-
+# Additional information about the code and generated data
 This is the implementation of a comparable analysis of a scientific project, which was conducted in November 2023 at the University of Southern Denmark (SDU) in Odense in the lecture Scientific Methods.
 
 
