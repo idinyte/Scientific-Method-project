@@ -18,15 +18,18 @@ def Render():
   # Draw the side screen
   pygame.draw.rect(screen, (128, 128, 128), (WIDTH - SIDE_SCREEN_WIDTH, 0, SIDE_SCREEN_WIDTH, HEIGHT))
   
-  text_surface = font.render(f"Units traveled: {float('%.2f' % (units_traveled))}", True, (255, 255, 255))
+  text_surface = font.render(f"Units traveled [distance]: {float('%.2f' % (units_traveled))}", True, (255, 255, 255))
   screen.blit(text_surface, (WIDTH - SIDE_SCREEN_WIDTH + 10, 10))
 
-  text_surface = font.render(f"Error: {float('%.2f' % (error))}", True, (255, 255, 255))
+  text_surface = font.render(f"Error [distance]: {float('%.2f' % (error))}", True, (255, 255, 255))
   screen.blit(text_surface, (WIDTH - SIDE_SCREEN_WIDTH + 10, font_size + 10 + 10))
 
-  text_surface = font.render(f"Rotations made: {float('%.2f' % (rotation_accumulator))}", True, (255, 255, 255))
+  text_surface = font.render(f"Total rotations made [deg]: {float('%.2f' % (rotation_accumulator))}", True, (255, 255, 255))
   screen.blit(text_surface, (WIDTH - SIDE_SCREEN_WIDTH + 10, 2*font_size + 2*10 + 10))
 
+  text_surface = font.render(f"Time [hours:min:sec]: {int(current_time//3600)}:{int(current_time//60)%60}:{int((current_time%60))}", True, (255, 255, 255))
+  screen.blit(text_surface, (WIDTH - SIDE_SCREEN_WIDTH + 10, 3*font_size + 3*10 + 10))
+  
   pygame.display.update()
 
 def calculate_rotation(vector1, vector2):
@@ -173,7 +176,7 @@ def move(direction):
 
 
 def Update(direction):
-  global units_traveled, error, rotation_accumulator, current_direction, player_x, player_y, EV3_path
+  global units_traveled, error, rotation_accumulator, current_direction, player_x, player_y, EV3_path, current_time
   if not can_move(direction, player_y, player_x):
      return
 
@@ -193,6 +196,7 @@ def Update(direction):
   EV3_path.append((ev3_rotation, move_distance))
   
   current_direction = direction
+  current_time += CalculateTimeTaken([(ev3_rotation, move_distance)], rotational_speed, velocity)
   
 def ReverseDir(direction):
   if direction == Direction.Up:
@@ -421,7 +425,7 @@ class Map(Enum):
 
 
 def Start(algorithm, map, save = False):
-    global rotation_accumulator, current_direction, units_traveled, EV3_path, error, grid
+    global rotation_accumulator, current_direction, units_traveled, EV3_path, error, grid, current_time
     global BLACK, WHITE, RED, CYAN, GRID_WIDTH, GRID_HEIGHT, GRID_SIZE
     global screen, font, WIDTH, SIDE_SCREEN_WIDTH, HEIGHT, font_size
     global player_y, player_x
@@ -519,8 +523,6 @@ def Start(algorithm, map, save = False):
 
 
     ######## Output and save path for robot motion #########
-    rotational_speed = 180 # 180 deg/s
-    velocity = 0.5 # 0.5 s/units
     time_taken = CalculateTimeTaken(EV3_path, rotational_speed, velocity)
     print(f"Distance traveled {units_traveled} units, error {error} units, total rotation {rotation_accumulator} deg, time take {time_taken}s")
 
@@ -528,6 +530,7 @@ def Start(algorithm, map, save = False):
       with open("ev3_path.txt", 'w') as file:
           file.write(str(EV3_path))
     ########################################################
+    current_time = 0
     pygame.quit()
     return units_traveled, error, rotation_accumulator, time_taken
 
@@ -553,6 +556,9 @@ def generate_data(algorithms, maps, test_trials, positions):
 
 player_y = 0
 player_x = 0
+current_time = 0
+rotational_speed = 180 # 180 deg/s
+velocity = 0.5 # 0.5 s/units
 algorithms = [Algorithm.Random, Algorithm.SemiRandom, Algorithm.AStartRandom, Algorithm.AStarSequential, Algorithm.AStar]
 starting_positions = {
   Map.Empty: [(1, 0), (23, 27), (25, 3), (6, 19), (12, 14), (12, 27), (23, 7), (17, 16), (11, 3), (6, 11), (20, 17), (22, 5), (7, 0), (25, 23), (11, 1), (16, 6), (11, 25), (4, 27), (7, 16), (21, 7), (10, 20), (15, 15), (14, 5), (27, 3), (21, 6)],
