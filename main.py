@@ -273,13 +273,12 @@ def heuristic(a, b):
     # Use the Manhattan distance heuristic
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
-# Function to determine the closest black cell using Breadth-First Search (BFS)
 def get_closest_black_cell(start, direction):
     queue = [start]
     visited = set()
     movement_array = get_movement_array(direction)
 
-    # Iterate through the grid using BFS until a black cell is found
+    # Iterate through the grid until a black cell is found
     while queue:
         current = queue.pop(0)
         if grid[current[0]][current[1]] == BLACK:
