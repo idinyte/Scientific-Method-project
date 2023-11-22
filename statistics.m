@@ -1,8 +1,8 @@
 clear; clc; close all;
 
 % Load the dataset
-data = readtable('/home/jonas/university/Scientific_Methods/project/data_0_0.txt');
-data_astar = readtable('/home/jonas/university/Scientific_Methods/project/data_compare_astar.txt');
+data = readtable('data_0_0.txt');
+data_astar = readtable('data_compare_astar.txt');
 
 % Extract the relevant dependent variables
 algorithm_values = data.Var5;
