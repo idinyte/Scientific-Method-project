@@ -42,6 +42,29 @@ rotation_algorithm_3_map_1 = data.Var3(algorithm_values == 3 & map_values == 1);
 rotation_algorithm_4_map_1 = data_astar.Var3(algorithm_values_astardata == 4 & map_values_astardata == 1);
 rotation_algorithm_5_map_1 = data_astar.Var3(algorithm_values_astardata == 5 & map_values_astardata == 1);
 
+rotation_algorithm_1_map_2 = data.Var3(algorithm_values == 1 & map_values == 2);
+rotation_algorithm_2_map_2 = data.Var3(algorithm_values == 2 & map_values == 2);
+rotation_algorithm_3_map_2 = data.Var3(algorithm_values == 3 & map_values == 2);
+rotation_algorithm_4_map_2 = data_astar.Var3(algorithm_values_astardata == 4 & map_values_astardata == 2);
+rotation_algorithm_5_map_2 = data_astar.Var3(algorithm_values_astardata == 5 & map_values_astardata == 2);
+
+rotation_algorithm_1_map_3 = data.Var3(algorithm_values == 1 & map_values == 3);
+rotation_algorithm_2_map_3 = data.Var3(algorithm_values == 2 & map_values == 3);
+rotation_algorithm_3_map_3 = data.Var3(algorithm_values == 3 & map_values == 3);
+rotation_algorithm_4_map_3 = data_astar.Var3(algorithm_values_astardata == 4 & map_values_astardata == 3);
+rotation_algorithm_5_map_3 = data_astar.Var3(algorithm_values_astardata == 5 & map_values_astardata == 3);
+
+rotation_algorithm_1_map_4 = data.Var3(algorithm_values == 1 & map_values == 4);
+rotation_algorithm_2_map_4 = data.Var3(algorithm_values == 2 & map_values == 4);
+rotation_algorithm_3_map_4 = data.Var3(algorithm_values == 3 & map_values == 4);
+rotation_algorithm_4_map_4 = data_astar.Var3(algorithm_values_astardata == 4 & map_values_astardata == 4);
+rotation_algorithm_5_map_4 = data_astar.Var3(algorithm_values_astardata == 5 & map_values_astardata == 4);
+
+rotation_algorithm_1_map_5 = data.Var3(algorithm_values == 1 & map_values == 5);
+rotation_algorithm_2_map_5 = data.Var3(algorithm_values == 2 & map_values == 5);
+rotation_algorithm_3_map_5 = data.Var3(algorithm_values == 3 & map_values == 5);
+rotation_algorithm_4_map_5 = data_astar.Var3(algorithm_values_astardata == 4 & map_values_astardata == 5);
+rotation_algorithm_5_map_5 = data_astar.Var3(algorithm_values_astardata == 5 & map_values_astardata == 5);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Descriptive analysis
@@ -247,120 +270,109 @@ disp(h_var);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Test statistics (Wilcoxon signed-rank test and Mann-Whitney U test)
+% Test statistics (Mann-Whitney U test)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Compare algorithm 1-3 with each other: Paired data and not normally distributed: Wilcoxon signed-rank test
-% Compare algorithm 4-5 with each other: Paired data and not normally distributed: Wilcoxon signed-rank test
-% Compare algorithm 1-3 with 4-5: Not paired data and not normally distributed: Mann-Whitney U test
-
-% Wilcoxon signed-rank test for time
-[p_time_1_2, ~, stats_time_1_2] = signrank(time_algorithm_1, time_algorithm_2);
-disp(['Wilcoxon signed-rank test for time between algorithm 1 and 2: p = ' num2str(p_time_1_2)]);
-
-% Repeat for other combinations of algorithms 1-3
-[p_time_1_3, ~, stats_time_1_3] = signrank(time_algorithm_1, time_algorithm_3);
-disp(['Wilcoxon signed-rank test for time between algorithm 1 and 3: p = ' num2str(p_time_1_3)]);
-
-[p_time_2_3, ~, stats_time_2_3] = signrank(time_algorithm_2, time_algorithm_3);
-disp(['Wilcoxon signed-rank test for time between algorithm 2 and 3: p = ' num2str(p_time_2_3)]);
-
-
-% Wilcoxon signed-rank test for error
-[p_error_1_2, ~, stats_error_1_2] = signrank(error_algorithm_1, error_algorithm_2);
-disp(['Wilcoxon signed-rank test for error between algorithm 1 and 2: p = ' num2str(p_error_1_2)]);
-
-% Repeat for other combinations of algorithms 1-3
-[p_error_1_3, ~, stats_error_1_3] = signrank(error_algorithm_1, error_algorithm_3);
-disp(['Wilcoxon signed-rank test for error between algorithm 1 and 3: p = ' num2str(p_error_1_3)]);
-
-[p_error_2_3, ~, stats_error_2_3] = signrank(error_algorithm_2, error_algorithm_3);
-disp(['Wilcoxon signed-rank test for error between algorithm 2 and 3: p = ' num2str(p_error_2_3)]);
-
-
-% Wilcoxon signed-rank test for rotation
-[p_rotation_1_2, ~, stats_rotation_1_2] = signrank(rotation_algorithm_1, rotation_algorithm_2);
-disp(['Wilcoxon signed-rank test for rotation between algorithm 1 and 2: p = ' num2str(p_rotation_1_2)]);
-
-[p_rotation_1_3, ~, stats_rotation_1_3] = signrank(rotation_algorithm_1, rotation_algorithm_3);
-disp(['Wilcoxon signed-rank test for rotation between algorithm 1 and 3: p = ' num2str(p_rotation_1_3)]);
-
-[p_rotation_2_3, ~, stats_rotation_2_3] = signrank(rotation_algorithm_2, rotation_algorithm_3);
-disp(['Wilcoxon signed-rank test for rotation between algorithm 2 and 3: p = ' num2str(p_rotation_2_3)]);
-
-
-
-
-% Wilcoxon signed-rank test for time
-[p_time_4_5, ~, stats_time_4_5] = signrank(time_algorithm_4, time_algorithm_5);
-disp(['Wilcoxon signed-rank test for time between algorithm 4 and 5: p = ' num2str(p_time_4_5)]);
-
-% Wilcoxon signed-rank test for error
-[p_error_4_5, ~, stats_error_4_5] = signrank(error_algorithm_4, error_algorithm_5);
-disp(['Wilcoxon signed-rank test for error between algorithm 4 and 5: p = ' num2str(p_error_4_5)]);
-
-% Wilcoxon signed-rank test for rotation
-[p_rotation_4_5, ~, stats_rotation_4_5] = signrank(rotation_algorithm_4, rotation_algorithm_5);
-disp(['Wilcoxon signed-rank test for rotation between algorithm 4 and 5: p = ' num2str(p_rotation_4_5)]);
-
-
+% Assuming independence
+% Model checking shows no normal distribution
+% Algorithm 1: Random
+% Algorithm 2: Semi-Random
+% Algorithm 3: A* Random
+% Algorithm 4: A* Orientation
+% Algorithm 5: A* Sequential
 
 % Mann-Whitney U test for time
+[p_time_1_2, ~, stats_time_1_2] = ranksum(time_algorithm_1, time_algorithm_2);
+disp(['Mann-Whitney U test for time between algorithm 1 and 2: p = ' num2str(p_time_1_2)]);
+
+[p_time_1_3, ~, stats_time_1_3] = ranksum(time_algorithm_1, time_algorithm_3);
+disp(['Mann-Whitney U test for time between algorithm 1 and 3: p = ' num2str(p_time_1_3)]);
+
+[p_time_2_3, ~, stats_time_2_3] = ranksum(time_algorithm_2, time_algorithm_3);
+disp(['Mann-Whitney U test for time between algorithm 2 and 3: p = ' num2str(p_time_2_3)]);
+
 [p_time_1_4, ~, stats_time_1_4] = ranksum(time_algorithm_1, time_algorithm_4);
 disp(['Mann-Whitney U test for time between algorithm 1 and 4: p = ' num2str(p_time_1_4)]);
 
 [p_time_1_5, ~, stats_time_1_5] = ranksum(time_algorithm_1, time_algorithm_5);
 disp(['Mann-Whitney U test for time between algorithm 1 and 5: p = ' num2str(p_time_1_5)]);
 
-% Repeat for other combinations of algorithms 1vs4, 1vs5, 2vs4, 2vs5, 3vs4, and 3vs5
-[p_time_1_4, ~, stats_time_1_4] = ranksum(time_algorithm_2, time_algorithm_4);
-disp(['Mann-Whitney U test for time between algorithm 2 and 4: p = ' num2str(p_time_1_4)]);
+[p_time_2_4, ~, stats_time_2_4] = ranksum(time_algorithm_2, time_algorithm_4);
+disp(['Mann-Whitney U test for time between algorithm 2 and 4: p = ' num2str(p_time_2_4)]);
 
-[p_time_1_5, ~, stats_time_1_5] = ranksum(time_algorithm_2, time_algorithm_5);
-disp(['Mann-Whitney U test for time between algorithm 2 and 5: p = ' num2str(p_time_1_5)]);
+[p_time_2_5, ~, stats_time_2_5] = ranksum(time_algorithm_2, time_algorithm_5);
+disp(['Mann-Whitney U test for time between algorithm 2 and 5: p = ' num2str(p_time_2_5)]);
 
-[p_time_1_4, ~, stats_time_1_4] = ranksum(time_algorithm_3, time_algorithm_4);
-disp(['Mann-Whitney U test for time between algorithm 3 and 4: p = ' num2str(p_time_1_4)]);
+[p_time_3_4, ~, stats_time_3_4] = ranksum(time_algorithm_3, time_algorithm_4);
+disp(['Mann-Whitney U test for time between algorithm 3 and 4: p = ' num2str(p_time_3_4)]);
 
-[p_time_1_5, ~, stats_time_1_5] = ranksum(time_algorithm_3, time_algorithm_5);
-disp(['Mann-Whitney U test for time between algorithm 3 and 5: p = ' num2str(p_time_1_5)]);
+[p_time_3_5, ~, stats_time_3_5] = ranksum(time_algorithm_3, time_algorithm_5);
+disp(['Mann-Whitney U test for time between algorithm 3 and 5: p = ' num2str(p_time_3_5)]);
+
+[p_time_4_5, ~, stats_time_4_5] = ranksum(time_algorithm_4, time_algorithm_5);
+disp(['Mann-Whitney U test for time between algorithm 4 and 5: p = ' num2str(p_time_4_5)]);
+
 
 
 % Mann-Whitney U test for error
+[p_error_1_2, ~, stats_error_1_2] = ranksum(error_algorithm_1, error_algorithm_2);
+disp(['Mann-Whitney U test for error between algorithm 1 and 2: p = ' num2str(p_error_1_2)]);
+
+[p_error_1_3, ~, stats_error_1_3] = ranksum(error_algorithm_1, error_algorithm_3);
+disp(['Mann-Whitney U test for error between algorithm 1 and 3: p = ' num2str(p_error_1_3)]);
+
+[p_error_2_3, ~, stats_error_2_3] = ranksum(error_algorithm_2, error_algorithm_3);
+disp(['Mann-Whitney U test for error between algorithm 2 and 3: p = ' num2str(p_error_2_3)]);
+
 [p_error_1_4, ~, stats_error_1_4] = ranksum(error_algorithm_1, error_algorithm_4);
 disp(['Mann-Whitney U test for error between algorithm 1 and 4: p = ' num2str(p_error_1_4)]);
 
 [p_error_1_5, ~, stats_error_1_5] = ranksum(error_algorithm_1, error_algorithm_5);
 disp(['Mann-Whitney U test for error between algorithm 1 and 5: p = ' num2str(p_error_1_5)]);
 
-[p_error_1_4, ~, stats_error_1_4] = ranksum(error_algorithm_2, error_algorithm_4);
-disp(['Mann-Whitney U test for error between algorithm 2 and 4: p = ' num2str(p_error_1_4)]);
+[p_error_2_4, ~, stats_error_2_4] = ranksum(error_algorithm_2, error_algorithm_4);
+disp(['Mann-Whitney U test for error between algorithm 2 and 4: p = ' num2str(p_error_2_4)]);
 
-[p_error_1_5, ~, stats_error_1_5] = ranksum(error_algorithm_2, error_algorithm_5);
-disp(['Mann-Whitney U test for error between algorithm 2 and 5: p = ' num2str(p_error_1_5)]);
+[p_error_2_5, ~, stats_error_2_5] = ranksum(error_algorithm_2, error_algorithm_5);
+disp(['Mann-Whitney U test for error between algorithm 2 and 5: p = ' num2str(p_error_2_5)]);
 
-[p_error_1_4, ~, stats_error_1_4] = ranksum(error_algorithm_3, error_algorithm_4);
-disp(['Mann-Whitney U test for error between algorithm 3 and 4: p = ' num2str(p_error_1_4)]);
+[p_error_3_4, ~, stats_error_3_4] = ranksum(error_algorithm_3, error_algorithm_4);
+disp(['Mann-Whitney U test for error between algorithm 3 and 4: p = ' num2str(p_error_3_4)]);
 
-[p_error_1_5, ~, stats_error_1_5] = ranksum(error_algorithm_3, error_algorithm_5);
-disp(['Mann-Whitney U test for error between algorithm 3 and 5: p = ' num2str(p_error_1_5)]);
+[p_error_3_5, ~, stats_error_3_5] = ranksum(error_algorithm_3, error_algorithm_5);
+disp(['Mann-Whitney U test for error between algorithm 3 and 5: p = ' num2str(p_error_3_5)]);
+
+[p_error_4_5, ~, stats_error_4_5] = ranksum(error_algorithm_4, error_algorithm_5);
+disp(['Mann-Whitney U test for error between algorithm 4 and 5: p = ' num2str(p_error_4_5)]);
 
 
 
 % Mann-Whitney U test for rotation
+[p_rotation_1_2, ~, stats_rotation_1_2] = ranksum(rotation_algorithm_1, rotation_algorithm_2);
+disp(['Mann-Whitney U test for rotation between algorithm 1 and 2: p = ' num2str(p_rotation_1_2)]);
+
+[p_rotation_1_3, ~, stats_rotation_1_3] = ranksum(rotation_algorithm_1, rotation_algorithm_3);
+disp(['Mann-Whitney U test for rotation between algorithm 1 and 3: p = ' num2str(p_rotation_1_3)]);
+
+[p_rotation_2_3, ~, stats_rotation_2_3] = ranksum(rotation_algorithm_2, rotation_algorithm_3);
+disp(['Mann-Whitney U test for rotation between algorithm 2 and 3: p = ' num2str(p_rotation_2_3)]);
+
 [p_rotation_1_4, ~, stats_rotation_1_4] = ranksum(rotation_algorithm_1, rotation_algorithm_4);
 disp(['Mann-Whitney U test for rotation between algorithm 1 and 4: p = ' num2str(p_rotation_1_4)]);
 
 [p_rotation_1_5, ~, stats_rotation_1_5] = ranksum(rotation_algorithm_1, rotation_algorithm_5);
 disp(['Mann-Whitney U test for rotation between algorithm 1 and 5: p = ' num2str(p_rotation_1_5)]);
 
-[p_rotation_1_4, ~, stats_rotation_1_4] = ranksum(rotation_algorithm_2, rotation_algorithm_4);
-disp(['Mann-Whitney U test for rotation between algorithm 2 and 4: p = ' num2str(p_rotation_1_4)]);
+[p_rotation_2_4, ~, stats_rotation_2_4] = ranksum(rotation_algorithm_2, rotation_algorithm_4);
+disp(['Mann-Whitney U test for rotation between algorithm 2 and 4: p = ' num2str(p_rotation_2_4)]);
 
-[p_rotation_1_5, ~, stats_rotation_1_5] = ranksum(rotation_algorithm_2, rotation_algorithm_5);
-disp(['Mann-Whitney U test for rotation between algorithm 2 and 5: p = ' num2str(p_rotation_1_5)]);
+[p_rotation_2_5, ~, stats_rotation_2_5] = ranksum(rotation_algorithm_2, rotation_algorithm_5);
+disp(['Mann-Whitney U test for rotation between algorithm 2 and 5: p = ' num2str(p_rotation_2_5)]);
 
-[p_rotation_1_4, ~, stats_rotation_1_4] = ranksum(rotation_algorithm_3, rotation_algorithm_4);
-disp(['Mann-Whitney U test for rotation between algorithm 3 and 4: p = ' num2str(p_rotation_1_4)]);
+[p_rotation_3_4, ~, stats_rotation_3_4] = ranksum(rotation_algorithm_3, rotation_algorithm_4);
+disp(['Mann-Whitney U test for rotation between algorithm 3 and 4: p = ' num2str(p_rotation_3_4)]);
 
-[p_rotation_1_5, ~, stats_rotation_1_5] = ranksum(rotation_algorithm_3, rotation_algorithm_5);
-disp(['Mann-Whitney U test for rotation between algorithm 3 and 5: p = ' num2str(p_rotation_1_5)]);
+[p_rotation_3_5, ~, stats_rotation_3_5] = ranksum(rotation_algorithm_3, rotation_algorithm_5);
+disp(['Mann-Whitney U test for rotation between algorithm 3 and 5: p = ' num2str(p_rotation_3_5)]);
+
+[p_rotation_4_5, ~, stats_rotation_4_5] = ranksum(rotation_algorithm_4, rotation_algorithm_5);
+disp(['Mann-Whitney U test for rotation between algorithm 4 and 5: p = ' num2str(p_rotation_4_5)]);
