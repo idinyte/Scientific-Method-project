@@ -30,13 +30,20 @@ The algorithm choices include:
 
 4: A* Sequential
 
+
 The environmental maps comprised:
+
 0: Empty
+
 1: Room
+
 2: Spiral maze
+
 3: Complex maze
 
+
 A description of these can be seen in the paper.
+
 
 
 ## This repository includes:
