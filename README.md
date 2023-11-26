@@ -19,10 +19,15 @@ The data is in the following format:
 {units_traveled},{error},{rotation_accumulator},{time_taken},{algorithm.value},{map.value}
 
 The algorithm choices include:
+
 0: Random
+
 1: Semirandom
+
 2: A* Random
+
 3: A* Orientation
+
 4: A* Sequential
 
 The environmental maps comprised:
