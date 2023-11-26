@@ -22,7 +22,7 @@ The algorithm choices include:
 0: Random
 1: Semirandom
 2: A* Random
-3: A* Spiral
+3: A* Orientation
 4: A* Sequential
 
 The environmental maps comprised:
@@ -48,8 +48,8 @@ requirements.txt:
 ev3_path.txt:
     Textfile that contains the commands used to navigate the Lego Mindstorm robot EV3 and to test the movement of the virtual "robot" in the simulation.
 
-data_0_0.txt, data_13_16.txt, data_23_24.txt:
-    These data files are named by their respective starting position (data_row_column). The study utilized three distinct starting positions and subjected each algorithm to 25 test trials (with the exception of the random algorithm, which underwent testing only with the starting position (0,0) due to a heavy computation time). 
+data_0_0.txt:
+    Data file for the stochastic algorithms. The study employed each algorithm with 25 deliberately selected different starting positions on each of the four maps. 
 
 data_compare_astar.txt:
-    These two algorithms were seperately compared with 25 different starting positions on every map (data_compare_astar.txt), because their results in the above files are the same for each test trial (because they don't use random movement).
+    Data file for the deterministic algorithms.
