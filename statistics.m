@@ -280,99 +280,69 @@ disp(h_var);
 % Algorithm 4: A* Orientation
 % Algorithm 5: A* Sequential
 
-% Mann-Whitney U test for time
-[p_time_1_2, ~, stats_time_1_2] = ranksum(time_algorithm_1, time_algorithm_2);
-disp(['Mann-Whitney U test for time between algorithm 1 and 2: p = ' num2str(p_time_1_2)]);
 
-[p_time_1_3, ~, stats_time_1_3] = ranksum(time_algorithm_1, time_algorithm_3);
-disp(['Mann-Whitney U test for time between algorithm 1 and 3: p = ' num2str(p_time_1_3)]);
+% Combine data into a cell array
+time_data = {time_algorithm_1, time_algorithm_2, time_algorithm_3, time_algorithm_4, time_algorithm_5};
+error_data = {error_algorithm_1, error_algorithm_2, error_algorithm_3, error_algorithm_4, error_algorithm_5};
+rotation_data = {rotation_algorithm_1, rotation_algorithm_2, rotation_algorithm_3, rotation_algorithm_4, rotation_algorithm_5};
 
-[p_time_2_3, ~, stats_time_2_3] = ranksum(time_algorithm_2, time_algorithm_3);
-disp(['Mann-Whitney U test for time between algorithm 2 and 3: p = ' num2str(p_time_2_3)]);
-
-[p_time_1_4, ~, stats_time_1_4] = ranksum(time_algorithm_1, time_algorithm_4);
-disp(['Mann-Whitney U test for time between algorithm 1 and 4: p = ' num2str(p_time_1_4)]);
-
-[p_time_1_5, ~, stats_time_1_5] = ranksum(time_algorithm_1, time_algorithm_5);
-disp(['Mann-Whitney U test for time between algorithm 1 and 5: p = ' num2str(p_time_1_5)]);
-
-[p_time_2_4, ~, stats_time_2_4] = ranksum(time_algorithm_2, time_algorithm_4);
-disp(['Mann-Whitney U test for time between algorithm 2 and 4: p = ' num2str(p_time_2_4)]);
-
-[p_time_2_5, ~, stats_time_2_5] = ranksum(time_algorithm_2, time_algorithm_5);
-disp(['Mann-Whitney U test for time between algorithm 2 and 5: p = ' num2str(p_time_2_5)]);
-
-[p_time_3_4, ~, stats_time_3_4] = ranksum(time_algorithm_3, time_algorithm_4);
-disp(['Mann-Whitney U test for time between algorithm 3 and 4: p = ' num2str(p_time_3_4)]);
-
-[p_time_3_5, ~, stats_time_3_5] = ranksum(time_algorithm_3, time_algorithm_5);
-disp(['Mann-Whitney U test for time between algorithm 3 and 5: p = ' num2str(p_time_3_5)]);
-
-[p_time_4_5, ~, stats_time_4_5] = ranksum(time_algorithm_4, time_algorithm_5);
-disp(['Mann-Whitney U test for time between algorithm 4 and 5: p = ' num2str(p_time_4_5)]);
+% Number of tests
+num_tests = 10;
+num_algorithms = 5;
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Correction for Type 1 error %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bonferroni correction
+alpha = 0.05;
+alpha_corrected = alpha / num_tests;
 
-% Mann-Whitney U test for error
-[p_error_1_2, ~, stats_error_1_2] = ranksum(error_algorithm_1, error_algorithm_2);
-disp(['Mann-Whitney U test for error between algorithm 1 and 2: p = ' num2str(p_error_1_2)]);
+% Display the corrected significance level
+fprintf('Corrected significance level: %f\n', alpha_corrected);
 
-[p_error_1_3, ~, stats_error_1_3] = ranksum(error_algorithm_1, error_algorithm_3);
-disp(['Mann-Whitney U test for error between algorithm 1 and 3: p = ' num2str(p_error_1_3)]);
+% Initialize matrices to store p-values
+p_values_time = nan(num_algorithms);
+p_values_error = nan(num_algorithms);
+p_values_rotation = nan(num_algorithms);
 
-[p_error_2_3, ~, stats_error_2_3] = ranksum(error_algorithm_2, error_algorithm_3);
-disp(['Mann-Whitney U test for error between algorithm 2 and 3: p = ' num2str(p_error_2_3)]);
+% Perform Mann-Whitney U tests for all combinations
+for i = 1:(num_algorithms-1)
+    for j = (i + 1):num_algorithms
+        % Perform Mann-Whitney U test for time
+        [p_values_time(i, j), ~, ~] = ranksum(time_data{i}, time_data{j});
+        
+        % Perform Mann-Whitney U test for error
+        [p_values_error(i, j), ~, ~] = ranksum(error_data{i}, error_data{j});
+        
+        % Perform Mann-Whitney U test for rotation
+        [p_values_rotation(i, j), ~, ~] = ranksum(rotation_data{i}, rotation_data{j});
+    end
+end
 
-[p_error_1_4, ~, stats_error_1_4] = ranksum(error_algorithm_1, error_algorithm_4);
-disp(['Mann-Whitney U test for error between algorithm 1 and 4: p = ' num2str(p_error_1_4)]);
+format short g;
 
-[p_error_1_5, ~, stats_error_1_5] = ranksum(error_algorithm_1, error_algorithm_5);
-disp(['Mann-Whitney U test for error between algorithm 1 and 5: p = ' num2str(p_error_1_5)]);
+% Display the matrix of p-values
+disp('Matrix of Mann-Whitney U test p-values: time');
+disp(p_values_time);
 
-[p_error_2_4, ~, stats_error_2_4] = ranksum(error_algorithm_2, error_algorithm_4);
-disp(['Mann-Whitney U test for error between algorithm 2 and 4: p = ' num2str(p_error_2_4)]);
+disp('Matrix of Mann-Whitney U test p-values: error');
+disp(p_values_error);
 
-[p_error_2_5, ~, stats_error_2_5] = ranksum(error_algorithm_2, error_algorithm_5);
-disp(['Mann-Whitney U test for error between algorithm 2 and 5: p = ' num2str(p_error_2_5)]);
+disp('Matrix of Mann-Whitney U test p-values: rotation');
+disp(p_values_rotation);
 
-[p_error_3_4, ~, stats_error_3_4] = ranksum(error_algorithm_3, error_algorithm_4);
-disp(['Mann-Whitney U test for error between algorithm 3 and 4: p = ' num2str(p_error_3_4)]);
+% Compare p-values against the corrected significance level
+significant_time = p_values_time < alpha_corrected;
+significant_error = p_values_error < alpha_corrected;
+significant_rotation = p_values_rotation < alpha_corrected;
 
-[p_error_3_5, ~, stats_error_3_5] = ranksum(error_algorithm_3, error_algorithm_5);
-disp(['Mann-Whitney U test for error between algorithm 3 and 5: p = ' num2str(p_error_3_5)]);
+% Display significant results
+disp('Significant results for time:');
+disp(significant_time);
 
-[p_error_4_5, ~, stats_error_4_5] = ranksum(error_algorithm_4, error_algorithm_5);
-disp(['Mann-Whitney U test for error between algorithm 4 and 5: p = ' num2str(p_error_4_5)]);
+disp('Significant results for error:');
+disp(significant_error);
 
-
-
-% Mann-Whitney U test for rotation
-[p_rotation_1_2, ~, stats_rotation_1_2] = ranksum(rotation_algorithm_1, rotation_algorithm_2);
-disp(['Mann-Whitney U test for rotation between algorithm 1 and 2: p = ' num2str(p_rotation_1_2)]);
-
-[p_rotation_1_3, ~, stats_rotation_1_3] = ranksum(rotation_algorithm_1, rotation_algorithm_3);
-disp(['Mann-Whitney U test for rotation between algorithm 1 and 3: p = ' num2str(p_rotation_1_3)]);
-
-[p_rotation_2_3, ~, stats_rotation_2_3] = ranksum(rotation_algorithm_2, rotation_algorithm_3);
-disp(['Mann-Whitney U test for rotation between algorithm 2 and 3: p = ' num2str(p_rotation_2_3)]);
-
-[p_rotation_1_4, ~, stats_rotation_1_4] = ranksum(rotation_algorithm_1, rotation_algorithm_4);
-disp(['Mann-Whitney U test for rotation between algorithm 1 and 4: p = ' num2str(p_rotation_1_4)]);
-
-[p_rotation_1_5, ~, stats_rotation_1_5] = ranksum(rotation_algorithm_1, rotation_algorithm_5);
-disp(['Mann-Whitney U test for rotation between algorithm 1 and 5: p = ' num2str(p_rotation_1_5)]);
-
-[p_rotation_2_4, ~, stats_rotation_2_4] = ranksum(rotation_algorithm_2, rotation_algorithm_4);
-disp(['Mann-Whitney U test for rotation between algorithm 2 and 4: p = ' num2str(p_rotation_2_4)]);
-
-[p_rotation_2_5, ~, stats_rotation_2_5] = ranksum(rotation_algorithm_2, rotation_algorithm_5);
-disp(['Mann-Whitney U test for rotation between algorithm 2 and 5: p = ' num2str(p_rotation_2_5)]);
-
-[p_rotation_3_4, ~, stats_rotation_3_4] = ranksum(rotation_algorithm_3, rotation_algorithm_4);
-disp(['Mann-Whitney U test for rotation between algorithm 3 and 4: p = ' num2str(p_rotation_3_4)]);
-
-[p_rotation_3_5, ~, stats_rotation_3_5] = ranksum(rotation_algorithm_3, rotation_algorithm_5);
-disp(['Mann-Whitney U test for rotation between algorithm 3 and 5: p = ' num2str(p_rotation_3_5)]);
-
-[p_rotation_4_5, ~, stats_rotation_4_5] = ranksum(rotation_algorithm_4, rotation_algorithm_5);
-disp(['Mann-Whitney U test for rotation between algorithm 4 and 5: p = ' num2str(p_rotation_4_5)]);
+disp('Significant results for rotation:');
+disp(significant_rotation);
